@@ -145,17 +145,17 @@ type ContinuousMove struct {
 	XMLName      string               `xml:"tptz:ContinuousMove"`
 	ProfileToken onvif.ReferenceToken `xml:"tptz:ProfileToken"`
 	Velocity     onvif.PTZSpeed       `xml:"tptz:Velocity"`
-	Timeout      xsd.Duration         `xml:"tptz:Timeout"`
+	//Timeout      xsd.Duration         `xml:"tptz:Timeout"`
 }
 
 type ContinuousMoveResponse struct {
 }
 
 type RelativeMove struct {
-	XMLName      string               `xml:"tptz:RelativeMove"`
-	ProfileToken onvif.ReferenceToken `xml:"tptz:ProfileToken"`
-	Translation  onvif.PTZVector      `xml:"tptz:Translation"`
-	Speed        onvif.PTZSpeed       `xml:"tptz:Speed"`
+	XMLName      string               `xml:"tptz:RelativeMove,omitempty"`
+	ProfileToken onvif.ReferenceToken `xml:"tptz:ProfileToken,omitempty"`
+	Translation  onvif.PTZVector      `xml:"tptz:Translation,omitempty"`
+	Speed        onvif.PTZSpeed       `xml:"tptz:Speed,omitempty"`
 }
 
 type RelativeMoveResponse struct {
