@@ -7,9 +7,9 @@ package device
 import (
 	"context"
 	"github.com/juju/errors"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/sdk"
-	"github.com/use-go/onvif/device"
+	"github.com/kerberos-io/onvif"
+	"github.com/kerberos-io/onvif/sdk"
+	"github.com/kerberos-io/onvif/device"
 )
 
 // Call_GetDot11Capabilities forwards the call to dev.CallMethod() then parses the payload of the reply as a GetDot11CapabilitiesResponse.

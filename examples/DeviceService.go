@@ -6,10 +6,10 @@ import (
 	"log"
 	"net/http"
 
-	goonvif "github.com/use-go/onvif"
-	"github.com/use-go/onvif/device"
-	sdk "github.com/use-go/onvif/sdk/device"
-	"github.com/use-go/onvif/xsd/onvif"
+	goonvif "github.com/kerberos-io/onvif"
+	"github.com/kerberos-io/onvif/device"
+	sdk "github.com/kerberos-io/onvif/sdk/device"
+	"github.com/kerberos-io/onvif/xsd/onvif"
 )
 
 const (
@@ -60,7 +60,7 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	} else {
-		// You could use https://github.com/use-go/onvif/gosoap for pretty printing response
+		// You could use https://github.com/kerberos-io/onvif/gosoap for pretty printing response
 		fmt.Println(createUserResponse)
 	}
 
