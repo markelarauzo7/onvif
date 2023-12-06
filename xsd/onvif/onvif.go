@@ -215,17 +215,17 @@ type VideoSourceExtension struct {
 }
 
 type ImagingSettings20 struct {
-	BacklightCompensation BacklightCompensation20    `xml:"onvif:BacklightCompensation"`
-	Brightness            float64                    `xml:"onvif:Brightness"`
-	ColorSaturation       float64                    `xml:"onvif:ColorSaturation"`
-	Contrast              float64                    `xml:"onvif:Contrast"`
-	Exposure              Exposure20                 `xml:"onvif:Exposure"`
-	Focus                 FocusConfiguration20       `xml:"onvif:Focus"`
-	IrCutFilter           IrCutFilterMode            `xml:"onvif:IrCutFilter"`
-	Sharpness             float64                    `xml:"onvif:Sharpness"`
-	WideDynamicRange      WideDynamicRange20         `xml:"onvif:WideDynamicRange"`
-	WhiteBalance          WhiteBalance20             `xml:"onvif:WhiteBalance"`
-	Extension             ImagingSettingsExtension20 `xml:"onvif:Extension"`
+	BacklightCompensation *BacklightCompensation20    `xml:"onvif:BacklightCompensation"`
+	Brightness            float64                     `xml:"onvif:Brightness,omitempty"`
+	ColorSaturation       float64                     `xml:"onvif:ColorSaturation,omitempty"`
+	Contrast              float64                     `xml:"onvif:Contrast,omitempty"`
+	Exposure              *Exposure20                 `xml:"onvif:Exposure"`
+	Focus                 *FocusConfiguration20       `xml:"onvif:Focus"`
+	IrCutFilter           *IrCutFilterMode            `xml:"onvif:IrCutFilter"`
+	Sharpness             float64                     `xml:"onvif:Sharpness,omitempty"`
+	WideDynamicRange      *WideDynamicRange20         `xml:"onvif:WideDynamicRange"`
+	WhiteBalance          *WhiteBalance20             `xml:"onvif:WhiteBalance"`
+	Extension             *ImagingSettingsExtension20 `xml:"onvif:Extension"`
 }
 
 type BacklightCompensation20 struct {
@@ -234,18 +234,18 @@ type BacklightCompensation20 struct {
 }
 
 type Exposure20 struct {
-	Mode            ExposureMode     `xml:"onvif:Mode"`
-	Priority        ExposurePriority `xml:"onvif:Priority"`
-	Window          Rectangle        `xml:"onvif:Window"`
-	MinExposureTime float64          `xml:"onvif:MinExposureTime"`
-	MaxExposureTime float64          `xml:"onvif:MaxExposureTime"`
-	MinGain         float64          `xml:"onvif:MinGain"`
-	MaxGain         float64          `xml:"onvif:MaxGain"`
-	MinIris         float64          `xml:"onvif:MinIris"`
-	MaxIris         float64          `xml:"onvif:MaxIris"`
-	ExposureTime    float64          `xml:"onvif:ExposureTime"`
-	Gain            float64          `xml:"onvif:Gain"`
-	Iris            float64          `xml:"onvif:Iris"`
+	Mode            ExposureMode     `xml:"onvif:Mode,omitempty"`
+	Priority        ExposurePriority `xml:"onvif:Priority,omitempty"`
+	Window          Rectangle        `xml:"onvif:Window,omitempty"`
+	MinExposureTime float64          `xml:"onvif:MinExposureTime,omitempty"`
+	MaxExposureTime float64          `xml:"onvif:MaxExposureTime,omitempty"`
+	MinGain         float64          `xml:"onvif:MinGain,omitempty"`
+	MaxGain         float64          `xml:"onvif:MaxGain,omitempty"`
+	MinIris         float64          `xml:"onvif:MinIris,omitempty"`
+	MaxIris         float64          `xml:"onvif:MaxIris,omitempty"`
+	ExposureTime    float64          `xml:"onvif:ExposureTime,omitempty"`
+	Gain            float64          `xml:"onvif:Gain,omitempty"`
+	Iris            float64          `xml:"onvif:Iris,omitempty"`
 }
 
 type FocusConfiguration20 struct {
@@ -509,8 +509,8 @@ type ItemList struct {
 }
 
 type SimpleItem struct {
-	Name  string            `xml:"onvif:Name,attr"`
-	Value xsd.AnySimpleType `xml:"onvif:Value,attr"`
+	Name  string            `xml:"Name,attr"`
+	Value xsd.AnySimpleType `xml:"Value,attr"`
 }
 
 type ElementItem struct {
