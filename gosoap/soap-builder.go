@@ -81,7 +81,9 @@ func (msg *SoapMessage) AddStringBodyContent(data string) {
 	}
 	//doc.FindElement("./Envelope/Body").AddChild(element)
 	bodyTag := doc.Root().SelectElement("Body")
-	bodyTag.AddChild(element)
+	if element != nil {
+		bodyTag.AddChild(element)
+	}
 
 	//doc.IndentTabs()
 	res, _ := doc.WriteToString()

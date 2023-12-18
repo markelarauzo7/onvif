@@ -12,12 +12,16 @@ import (
 	"github.com/beevik/etree"
 	"github.com/kerberos-io/onvif"
 	"github.com/kerberos-io/onvif/device"
-	discover "github.com/kerberos-io/onvif/ws-discovery"
+	wsdiscovery "github.com/kerberos-io/onvif/ws-discovery"
 )
 
 func TestGetAvailableDevicesAtSpecificEthernetInterface(t *testing.T) {
-	s, err := onvif.GetAvailableDevicesAtSpecificEthernetInterface("en0")
-	log.Printf("%v %v", err, s)
+
+	// client()
+	// runDiscovery("en0")
+	s, _ := wsdiscovery.GetAvailableDevicesAtSpecificEthernetInterface("en0")
+
+	log.Printf("%v", s)
 }
 
 func client() {
@@ -28,7 +32,7 @@ func client() {
 
 	log.Printf("output %+v", dev.GetServices())
 
-	res, err := dev.CallMethod(device.GetUsers{})
+	res, _ := dev.CallMethod(device.GetUsers{})
 	bs, _ := ioutil.ReadAll(res.Body)
 	log.Printf("output %+v %s", res.StatusCode, bs)
 }
@@ -41,11 +45,7 @@ type Host struct {
 
 func runDiscovery(interfaceName string) {
 	var hosts []*Host
-	devices, err := discover.SendProbe(interfaceName, nil, []string{"dn:NetworkVideoTransmitter"}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"})
-	if err != nil {
-		log.Printf("error %s", err)
-		return
-	}
+	devices, _ := wsdiscovery.SendProbe(interfaceName, nil, []string{"dn:NetworkVideoTransmitter"}, map[string]string{"dn": "http://www.onvif.org/ver10/network/wsdl"})
 	for _, j := range devices {
 		doc := etree.NewDocument()
 		if err := doc.ReadFromString(j); err != nil {
