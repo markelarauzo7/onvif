@@ -201,6 +201,8 @@ func getDeviceStructByName(name string) (interface{}, error) {
 		return &device.SetClientCertificateMode{}, nil
 	case "GetRelayOutputs":
 		return &device.GetRelayOutputs{}, nil
+	case "GetDigitalInputs":
+		return &device.GetDigitalInputs{}, nil
 	case "SetRelayOutputSettings":
 		return &device.SetRelayOutputSettings{}, nil
 	case "SetRelayOutputState":

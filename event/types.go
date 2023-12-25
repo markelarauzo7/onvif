@@ -166,6 +166,7 @@ type QueryExpression QueryExpressionType
 
 // TopicExpressionType struct for wsnt:TopicExpression
 type TopicExpressionType struct { //wsnt http://docs.oasis-open.org/wsn/b-2.xsd
+	Dialect    xsd.String `xml:"Dialect,attr"`
 	TopicKinds xsd.String `xml:",chardata"`
 }
 

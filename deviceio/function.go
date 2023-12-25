@@ -341,6 +341,15 @@ func (_ *GetRelayOutputsFunction) Response() interface{} {
 	return &GetRelayOutputsResponse{}
 }
 
+type GetDigitalInputsFunction struct{}
+
+func (_ *GetDigitalInputsFunction) Request() interface{} {
+	return &GetDigitalInputs{}
+}
+func (_ *GetDigitalInputsFunction) Response() interface{} {
+	return &GetDigitalInputsResponse{}
+}
+
 type GetRemoteDiscoveryModeFunction struct{}
 
 func (_ *GetRemoteDiscoveryModeFunction) Request() interface{} {

@@ -683,6 +683,14 @@ type GetRelayOutputsResponse struct {
 	RelayOutputs onvif.RelayOutput
 }
 
+type GetDigitalInputs struct {
+	XMLName string `xml:"tmd:GetDigitalInputs"`
+}
+
+type GetDigitalInputsResponse struct {
+	DigitalInputs onvif.DigitalInput
+}
+
 type SetRelayOutputSettings struct {
 	XMLName          string                    `xml:"tds:SetRelayOutputSettings"`
 	RelayOutputToken onvif.ReferenceToken      `xml:"tds:RelayOutputToken"`

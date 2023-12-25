@@ -72,6 +72,7 @@ var DeviceFunctionMap = map[string]Function{
 	GetNetworkProtocols:           &device.GetNetworkProtocolsFunction{},
 	GetPkcs10Request:              &device.GetPkcs10RequestFunction{},
 	GetRelayOutputs:               &device.GetRelayOutputsFunction{},
+	GetDigitalInputs:              &device.GetDigitalInputsFunction{},
 	GetRemoteDiscoveryMode:        &device.GetRemoteDiscoveryModeFunction{},
 	GetRemoteUser:                 &device.GetRemoteUserFunction{},
 	GetScopes:                     &device.GetScopesFunction{},

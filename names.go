@@ -75,6 +75,7 @@ const (
 	GetNetworkProtocols           = "GetNetworkProtocols"
 	GetPkcs10Request              = "GetPkcs10Request"
 	GetRelayOutputs               = "GetRelayOutputs"
+	GetDigitalInputs							= "GetDigitalInputs"
 	GetRemoteDiscoveryMode        = "GetRemoteDiscoveryMode"
 	GetRemoteUser                 = "GetRemoteUser"
 	GetScopes                     = "GetScopes"

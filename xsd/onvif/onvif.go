@@ -1839,6 +1839,17 @@ type RelayOutputSettings struct {
 	IdleState RelayIdleState `xml:"IdleState"`
 }
 
+type DigitalInput struct {
+	Token ReferenceToken `xml:"token,attr"`
+	IdleState 	InputIdleState `xml:"IdleState,attr"`
+}
+
+// TODO:enumeration
+type InputToken xsd.String
+
+// TODO:enumeration
+type InputIdleState xsd.String
+
 // TODO:enumeration
 type RelayIdleState xsd.String
 
