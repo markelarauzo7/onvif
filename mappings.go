@@ -12,6 +12,7 @@ import (
 	"github.com/kerberos-io/onvif/analytics"
 	"github.com/kerberos-io/onvif/device"
 	"github.com/kerberos-io/onvif/event"
+	"github.com/kerberos-io/onvif/imaging"
 	"github.com/kerberos-io/onvif/media"
 	"github.com/kerberos-io/onvif/media2"
 	"github.com/kerberos-io/onvif/ptz"
@@ -140,7 +141,7 @@ var EventFunctionMap = map[string]Function{
 	Unsubscribe:                 &event.UnsubscribeFunction{},
 }
 
-/*var ImagingFunctionMap = map[string]Function{
+var ImagingFunctionMap = map[string]Function{
 	GetCurrentPreset:       &imaging.GetCurrentPresetFunction{},
 	GetImagingSettings:     &imaging.GetImagingSettingsFunction{},
 	GetMoveOptions:         &imaging.GetMoveOptionsFunction{},
@@ -152,7 +153,7 @@ var EventFunctionMap = map[string]Function{
 	SetCurrentPreset:       &imaging.SetCurrentPresetFunction{},
 	SetImagingSettings:     &imaging.SetImagingSettingsFunction{},
 	Stop:                   &imaging.StopFunction{},
-}*/
+}
 
 var MediaFunctionMap = map[string]Function{
 	AddAudioDecoderConfiguration:               &media.AddAudioDecoderConfigurationFunction{},

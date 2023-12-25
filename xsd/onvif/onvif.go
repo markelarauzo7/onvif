@@ -1840,8 +1840,8 @@ type RelayOutputSettings struct {
 }
 
 type DigitalInput struct {
-	Token     ReferenceToken `xml:"token,attr"`
-	IdleState InputIdleState `xml:"IdleState,attr"`
+	Token ReferenceToken `xml:"token,attr"`
+	IdleState 	InputIdleState `xml:"IdleState,attr"`
 }
 
 // TODO:enumeration
