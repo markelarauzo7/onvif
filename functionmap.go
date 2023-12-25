@@ -20,8 +20,8 @@ func FunctionByServiceAndFunctionName(serviceName, functionName string) (Functio
 		functionMap = EventFunctionMap
 	case AnalyticsWebService:
 		functionMap = AnalyticsFunctionMap
-	case ImagingWebService:
-		functionMap = ImagingFunctionMap
+	//case ImagingWebService:
+	//		functionMap = ImagingFunctionMap
 	case RecordingWebService:
 		functionMap = RecordingFunctionMap
 	default:
