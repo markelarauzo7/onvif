@@ -122,6 +122,8 @@ func callNecessaryMethod(serviceName, methodName, acceptedData, username, passwo
 	switch strings.ToLower(serviceName) {
 	case "device":
 		methodStruct, err = getDeviceStructByName(methodName)
+	case "deviceio":
+		methodStruct, err = getDeviceStructByName(methodName)
 	case "ptz":
 		methodStruct, err = getPTZStructByName(methodName)
 	case "media":
@@ -150,7 +152,7 @@ func callNecessaryMethod(serviceName, methodName, acceptedData, username, passwo
 
 	servResp, err := networking.SendSoap(new(http.Client), endpoint, soap.String())
 	if err != nil {
-		return "", err
+		servResp, err = networking.SendSoapWithDigest(new(http.Client), endpoint, soap.String(), username, password)
 	}
 
 	rsp, err := ioutil.ReadAll(servResp.Body)

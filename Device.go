@@ -13,6 +13,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/kerberos-io/onvif/networking"
 	"github.com/kerberos-io/onvif/xsd/onvif"
 
 	"github.com/beevik/etree"
@@ -253,7 +254,7 @@ func (dev *Device) getEndpoint(endpoint string) (string, error) {
 
 // CallMethod functions call an method, defined <method> struct.
 // You should use Authenticate method to call authorized requests.
-func (dev *Device) CallMethod(method interface{}) (*http.Response, error) {
+func (dev Device) CallMethod(method interface{}) (*http.Response, error) {
 	pkgPath := strings.Split(reflect.TypeOf(method).PkgPath(), "/")
 	pkg := strings.ToLower(pkgPath[len(pkgPath)-1])
 
@@ -261,11 +262,35 @@ func (dev *Device) CallMethod(method interface{}) (*http.Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	requestBody, err := xml.Marshal(method)
+	return dev.callMethodDo(endpoint, method)
+}
+
+// CallMethod functions call an method, defined <method> struct with authentication data
+func (dev Device) callMethodDo(endpoint string, method interface{}) (*http.Response, error) {
+	output, err := xml.MarshalIndent(method, "  ", "    ")
 	if err != nil {
 		return nil, err
 	}
-	return dev.SendSoap(endpoint, string(requestBody))
+
+	soap, err := dev.buildMethodSOAP(string(output))
+	if err != nil {
+		return nil, err
+	}
+
+	soap.AddRootNamespaces(Xlmns)
+	soap.AddAction()
+
+	//Auth Handling
+	if dev.params.Username != "" && dev.params.Password != "" {
+		soap.AddWSSecurity(dev.params.Username, dev.params.Password)
+	}
+
+	servResp, err := networking.SendSoap(dev.params.HttpClient, endpoint, soap.String())
+	if err != nil {
+		servResp, err = networking.SendSoapWithDigest(new(http.Client), endpoint, soap.String(), dev.params.Username, dev.params.Password)
+	}
+
+	return servResp, err
 }
 
 func (dev *Device) GetDeviceParams() DeviceParams {
@@ -283,7 +308,7 @@ func (dev *Device) GetEndpointByRequestStruct(requestStruct interface{}) (string
 	return endpoint, err
 }
 
-func (dev *Device) SendSoap(endpoint string, xmlRequestBody string) (resp *http.Response, err error) {
+/*func (dev *Device) SendSoap(endpoint string, xmlRequestBody string) (resp *http.Response, err error) {
 	soap := gosoap.NewEmptySOAP()
 	soap.AddStringBodyContent(xmlRequestBody)
 	soap.AddRootNamespaces(Xlmns)
@@ -302,6 +327,27 @@ func (dev *Device) SendSoap(endpoint string, xmlRequestBody string) (resp *http.
 		resp, err = dev.params.HttpClient.Do(req)
 	}
 	return resp, err
+}*/
+
+// CallMethod functions call an method, defined <method> struct with authentication data
+func (dev Device) SendSoap(endpoint string, xmlRequestBody string) (*http.Response, error) {
+
+	soap := gosoap.NewEmptySOAP()
+	soap.AddStringBodyContent(xmlRequestBody)
+	soap.AddRootNamespaces(Xlmns)
+	soap.AddAction()
+
+	//Auth Handling
+	if dev.params.Username != "" && dev.params.Password != "" {
+		soap.AddWSSecurity(dev.params.Username, dev.params.Password)
+	}
+
+	servResp, err := networking.SendSoap(dev.params.HttpClient, endpoint, soap.String())
+	if err != nil {
+		servResp, err = networking.SendSoapWithDigest(new(http.Client), endpoint, soap.String(), dev.params.Username, dev.params.Password)
+	}
+
+	return servResp, err
 }
 
 func createHttpRequest(httpMethod string, endpoint string, soap string) (req *http.Request, err error) {

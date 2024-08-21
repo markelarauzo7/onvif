@@ -680,7 +680,7 @@ type GetRelayOutputs struct {
 }
 
 type GetRelayOutputsResponse struct {
-	RelayOutputs onvif.RelayOutput
+	RelayOutputs []onvif.RelayOutput
 }
 
 type GetDigitalInputs struct {
@@ -688,7 +688,7 @@ type GetDigitalInputs struct {
 }
 
 type GetDigitalInputsResponse struct {
-	DigitalInputs onvif.DigitalInput
+	DigitalInputs []onvif.DigitalInput
 }
 
 type SetRelayOutputSettings struct {
