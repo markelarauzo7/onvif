@@ -629,12 +629,13 @@ type RuleEngineConfiguration struct {
 type RuleEngineConfigurationExtension xsd.AnyType
 
 type PTZConfiguration struct {
-	PTZConfigurationEntity
-	Token                                  ReferenceToken             `xml:"token,attr"`
+	Token                                  ReferenceToken             `json:",omitempty" xml:"token,attr,omitempty"`
 	MoveRamp                               int                        `json:",omitempty" xml:"MoveRamp,attr,omitempty"`
 	PresetRamp                             int                        `json:",omitempty" xml:"PresetRamp,attr,omitempty"`
 	PresetTourRamp                         int                        `json:",omitempty" xml:"PresetTourRamp,attr,omitempty"`
-	NodeToken                              *ReferenceToken            `json:",omitempty" xml:"tptz:NodeToken,omitempty"`
+	Name                                   Name                       `json:",omitempty" xml:",omitempty"`
+	UseCount                               int                        `json:",omitempty" xml:",omitempty"`
+	NodeToken                              ReferenceToken             `json:",omitempty" xml:",omitempty"`
 	DefaultAbsolutePantTiltPositionSpace   *xsd.AnyURI                `json:",omitempty" xml:",omitempty"`
 	DefaultAbsoluteZoomPositionSpace       *xsd.AnyURI                `json:",omitempty" xml:",omitempty"`
 	DefaultRelativePanTiltTranslationSpace *xsd.AnyURI                `json:",omitempty" xml:",omitempty"`
@@ -646,12 +647,6 @@ type PTZConfiguration struct {
 	PanTiltLimits                          *PanTiltLimits             `json:",omitempty" xml:",omitempty"`
 	ZoomLimits                             *ZoomLimits                `json:",omitempty" xml:",omitempty"`
 	Extension                              *PTZConfigurationExtension `json:",omitempty" xml:",omitempty"`
-}
-
-type PTZConfigurationEntity struct {
-	Token    ReferenceToken `json:",omitempty" xml:"token,attr,omitempty"`
-	Name     Name           `json:",omitempty" xml:"tptz:Name,omitempty"`
-	UseCount int            `json:",omitempty" xml:"tptz:UseCount,omitempty"`
 }
 
 type PTZSpeed interface {
