@@ -1144,8 +1144,8 @@ type PTZPreset struct {
 }
 
 type PTZVector struct {
-	PanTilt *Vector2D `json:",omitempty" xml:"onvif:PanTilt,omitempty"`
-	Zoom    *Vector1D `json:",omitempty" xml:"onvif:Zoom,omitempty"`
+	PanTilt *Vector2D `json:",omitempty" xml:"PanTilt,omitempty"`
+	Zoom    *Vector1D `json:",omitempty" xml:"Zoom,omitempty"`
 }
 
 type PTZStatus struct {

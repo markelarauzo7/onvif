@@ -175,7 +175,7 @@ type GetStatusResponse struct {
 type AbsoluteMove struct {
 	XMLName      string               `xml:"tptz:AbsoluteMove"`
 	ProfileToken onvif.ReferenceToken `xml:"tptz:ProfileToken"`
-	Position     onvif.PTZVector      `xml:"tptz:Position"`
+	Position     Vector               `xml:"tptz:Position"`
 	Speed        onvif.PTZSpeed       `xml:"tptz:Speed"`
 }
 
