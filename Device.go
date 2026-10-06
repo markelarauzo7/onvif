@@ -285,12 +285,7 @@ func (dev Device) callMethodDo(endpoint string, method interface{}) (*http.Respo
 		soap.AddWSSecurity(dev.params.Username, dev.params.Password)
 	}
 
-	servResp, err := networking.SendSoap(dev.params.HttpClient, endpoint, soap.String())
-	if err != nil {
-		servResp, err = networking.SendSoapWithDigest(new(http.Client), endpoint, soap.String(), dev.params.Username, dev.params.Password)
-	}
-
-	return servResp, err
+	return dev.sendSoapWithDigestFallback(endpoint, soap.String())
 }
 
 func (dev *Device) GetDeviceParams() DeviceParams {
@@ -329,6 +324,20 @@ func (dev *Device) GetEndpointByRequestStruct(requestStruct interface{}) (string
 	return resp, err
 }*/
 
+// sendSoapWithDigestFallback retries with HTTP digest auth only when the camera answered with an
+// error, since some cameras reject WS-Security. A camera that never answered gets no retry: the
+// retry would only wait for the same timeout again. Both requests go through the caller's client,
+// so its timeout bounds them.
+func (dev Device) sendSoapWithDigestFallback(endpoint string, soap string) (*http.Response, error) {
+	servResp, err := networking.SendSoap(dev.params.HttpClient, endpoint, soap)
+	if err == nil || servResp == nil {
+		return servResp, err
+	}
+
+	servResp.Body.Close()
+	return networking.SendSoapWithDigest(dev.params.HttpClient, endpoint, soap, dev.params.Username, dev.params.Password)
+}
+
 // CallMethod functions call an method, defined <method> struct with authentication data
 func (dev Device) SendSoap(endpoint string, xmlRequestBody string) (*http.Response, error) {
 
@@ -342,12 +351,7 @@ func (dev Device) SendSoap(endpoint string, xmlRequestBody string) (*http.Respon
 		soap.AddWSSecurity(dev.params.Username, dev.params.Password)
 	}
 
-	servResp, err := networking.SendSoap(dev.params.HttpClient, endpoint, soap.String())
-	if err != nil {
-		servResp, err = networking.SendSoapWithDigest(new(http.Client), endpoint, soap.String(), dev.params.Username, dev.params.Password)
-	}
-
-	return servResp, err
+	return dev.sendSoapWithDigestFallback(endpoint, soap.String())
 }
 
 func createHttpRequest(httpMethod string, endpoint string, soap string) (req *http.Request, err error) {
